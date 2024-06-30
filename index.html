@@ -10,7 +10,8 @@
     <div class="container">
       <h1 class="center-item">DELIVERY MANAGEMENT SYSTEM - GD ENTERPRISES</h1>
 
-      <div class="heading-btn-box">
+      <!-- section-1 Home area  -->
+      <div class="main-heading-btn-box">
         <button id="secondaryBillBtn" class="main-button">
           Secondary Bill Details
         </button>
@@ -19,13 +20,17 @@
         </button>
       </div>
 
+      <!-- section-2 secondary bill area  -->
       <div id="secondaryBillDetails" class="hidden">
         <h2 class="center-item">Secondary Bill Details</h2>
-        <input
-          type="text"
-          id="billNumberInput"
-          placeholder="Enter Bill Number" />
-        <button id="addBillBtn">Add Bill</button>
+        <div class="add-bill-area">
+          <input
+            type="text"
+            id="billNumberInput"
+            placeholder="Enter Bill Number" />
+          <button id="addBillBtn">Add Bill</button>
+        </div>
+
         <table id="secondaryBillTable">
           <thead>
             <tr>
@@ -41,44 +46,49 @@
         </div>
       </div>
 
+      <!-- record area  -->
       <div id="recordDelivery" class="hidden">
-        <!-- <h2 class="center-item">Record a Delivery</h2> -->
-        <h3 style="color: #086ad2; text-align: center; margin-top: 40px">
+        <h2 class="center-item">Record a Delivery</h2>
+        <h3 style="color: #086ad2; text-align: start; margin-top: 40px">
           Bill Numbers
         </h3>
         <div id="latestBills">
           <div id="billCheckboxList"></div>
         </div>
-        <div class="flex-input">
-          <label
-            for="datepicker"
-            style="
-              display: block;
-              color: #007bff;
-              font-size: 20px;
-              font-weight: 700;
-            "
-            ;
-            >Date:
-          </label>
-          <input type="date" id="datepicker" placeholder="Select Date" />
-          <button id="todayBtn">Today</button>
-        </div>
-        <div class="delivery-inputs-conatiner">
-          <h3 style="color: #007bff">Delivery Medium</h3>
-          <select id="deliveryMedium">
-            <option disabled selected>Select Delivery Medium</option>
-            <option value="tempo">Tempo</option>
-            <option value="pickup">Pickup</option>
-            <option value="bus">Bus</option>
-          </select>
+        <hr />
+        <!-- main inputs of record date / mode of transport -->
+        <div class="main-record-inputs-box">
+          <div class="flex-input">
+            <label
+              for="datepicker"
+              style="
+                display: block;
+                color: #007bff;
+                font-size: 20px;
+                font-weight: 700;
+              "
+              ;
+              >Date:
+            </label>
+            <input type="date" id="datepicker" placeholder="Select Date" />
+            <button id="todayBtn">Today</button>
+          </div>
+          <div class="medium-transport-box">
+            <h3 style="color: #007bff">Delivery Medium</h3>
+            <select id="deliveryMedium">
+              <option disabled selected>Select Delivery Medium</option>
+              <option value="tempo">Tempo</option>
+              <option value="pickup">Pickup</option>
+              <option value="bus">Bus</option>
+            </select>
+          </div>
         </div>
 
         <!-- tempo -->
         <div id="tempoDetails" class="hidden delivery-details">
           <h3 class="center-item main-heading">Tempo Details</h3>
           <!-- 1st input -->
-          <div class="select-area delivery-inputs-conatiner">
+          <div class="select-area">
             <h3 for="tempoAreaSelect">Select Area:</h3>
             <div id="tickmarkOptions" class="select-options">
               <label><input type="checkbox" value="baihata" /> Baihata</label>
@@ -126,7 +136,7 @@
         <div id="pickupDetails" class="hidden delivery-details">
           <h3 class="center-item main-heading">Pickup Details</h3>
           <!-- 1st input -->
-          <div class="delivery-inputs-conatiner">
+          <div class="select-area">
             <h3 for="pickupAreaSelect">Select Area:</h3>
             <div id="pickupTickmarks" class="select-options">
               <label
