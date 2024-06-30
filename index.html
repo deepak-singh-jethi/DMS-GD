@@ -9,12 +9,15 @@
   <body>
     <div class="container">
       <h1 class="center-item">DELIVERY MANAGEMENT SYSTEM - GD ENTERPRISES</h1>
-      <button id="secondaryBillBtn" class="main-button">
-        Secondary Bill Details
-      </button>
-      <button id="recordDeliveryBtn" class="main-button">
-        Record a Delivery
-      </button>
+
+      <div class="heading-btn-box">
+        <button id="secondaryBillBtn" class="main-button">
+          Secondary Bill Details
+        </button>
+        <button id="recordDeliveryBtn" class="main-button">
+          Record a Delivery
+        </button>
+      </div>
 
       <div id="secondaryBillDetails" class="hidden">
         <h2 class="center-item">Secondary Bill Details</h2>
@@ -39,13 +42,25 @@
       </div>
 
       <div id="recordDelivery" class="hidden">
-        <h2 class="center-item">Record a Delivery</h2>
-        <h3 style="color: #007bff">Bill Numbers</h3>
+        <!-- <h2 class="center-item">Record a Delivery</h2> -->
+        <h3 style="color: #086ad2; text-align: center; margin-top: 40px">
+          Bill Numbers
+        </h3>
         <div id="latestBills">
-          <!-- ! changes done here to show secondary bills with checkbox -->
           <div id="billCheckboxList"></div>
         </div>
-        <div class="delivery-inputs-conatiner">
+        <div class="flex-input">
+          <label
+            for="datepicker"
+            style="
+              display: block;
+              color: #007bff;
+              font-size: 20px;
+              font-weight: 700;
+            "
+            ;
+            >Date:
+          </label>
           <input type="date" id="datepicker" placeholder="Select Date" />
           <button id="todayBtn">Today</button>
         </div>
@@ -61,7 +76,7 @@
 
         <!-- tempo -->
         <div id="tempoDetails" class="hidden delivery-details">
-          <h3 class="center-item">Tempo Details</h3>
+          <h3 class="center-item main-heading">Tempo Details</h3>
           <!-- 1st input -->
           <div class="select-area delivery-inputs-conatiner">
             <h3 for="tempoAreaSelect">Select Area:</h3>
@@ -109,7 +124,7 @@
 
         <!-- pickup details -->
         <div id="pickupDetails" class="hidden delivery-details">
-          <h3 class="center-item">Pickup Details</h3>
+          <h3 class="center-item main-heading">Pickup Details</h3>
           <!-- 1st input -->
           <div class="delivery-inputs-conatiner">
             <h3 for="pickupAreaSelect">Select Area:</h3>
@@ -182,7 +197,7 @@
 
         <!-- bus -->
         <div id="busDetails" class="hidden delivery-details">
-          <h3 class="center-item">Bus Details</h3>
+          <h3 class="center-item main-heading">Bus Details</h3>
           <div class="delivery-inputs-conatiner">
             <h3 for="busAreaInput">Area:</h3>
             <input
@@ -202,9 +217,12 @@
         </div>
 
         <!-- Submit Button -->
-        <button id="submitDeliveryBtn" class="main-button">
-          Submit Delivery
-        </button>
+
+        <div class="heading-btn-box">
+          <button id="submitDeliveryBtn" class="main-button">
+            Submit Delivery
+          </button>
+        </div>
 
         <!-- Delivery Status Table -->
         <table id="deliveryStatusTable" class="hidden">

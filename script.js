@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const backHomeBtn = document.getElementById("backHomeBtn");
   const billNumberInput = document.getElementById("billNumberInput");
   const addBillBtn = document.getElementById("addBillBtn");
-  const billTableBody = document.getElementById("billTableBody");
+  const secondaryBillTable = document.getElementById("secondaryBillTable");
   const paginationButtons = document.getElementById("paginationButtons");
 
   const billPrevPageBtn = document.getElementById("billPrevPageBtn");
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ! latest bill first
 
-    billsData.forEach((bill) => {
+    billsData.slice(0, 5).forEach((bill) => {
       if (!bill.isChecked) {
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -394,19 +394,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // rendering 5 bills on display
   function renderBillTable(billsToShow) {
-    billTableBody.innerHTML = "";
+    secondaryBillTable.innerHTML = "";
+
     // ! latest bill first
+    if (billsToShow === undefined || billsToShow.length === 0) {
+      secondaryBillTable.innerHTML = "<span>No bills available</span>";
+      return;
+    }
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+                <tr>
+                    <th>Bill Number</th>
+                    <th>Action</th>
+                </tr>
+            `;
+    secondaryBillTable.appendChild(thead);
+
     billsToShow.forEach((bill, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
                 <td>${bill.billNumber}</td>
                 <td><button class="delete-btn" data-index="${index}">Delete</button></td>
             `;
-      billTableBody.appendChild(row);
+      secondaryBillTable.appendChild(row);
     });
   }
   // delete a bill
-  billTableBody.addEventListener("click", function (event) {
+  secondaryBillTable.addEventListener("click", function (event) {
     if (event.target.classList.contains("delete-btn")) {
       const index = event.target.getAttribute("data-index");
       billsData.splice(index, 1);

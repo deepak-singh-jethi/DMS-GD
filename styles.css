@@ -49,19 +49,47 @@ button:hover {
     background-color: #0056b3;
 }
 
-.main-button {
-    width: 100%;
+.heading-btn-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
+.heading-btn-box> #submitDeliveryBtn{
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.main-button,#addBillBtn {
+    width: fit-content;
     margin-bottom: 20px;
 }
 
 .back-button {
-    background-color: #6c757d;
+    background-color: #4c98dc;
 }
 
 .back-button:hover {
     background-color: #5a6268;
 }
+#deliveryMedium{
+    max-width: 400px;
+    margin-inline: auto;
+}
+.delivery-inputs-conatiner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.delivery-inputs-conatiner input{
+    max-width: 400px;
+}
+.main-heading{
+    color: #0f4a8a;
+}
 .delete-btn {
     padding: 5px 10px;
     font-size: 14px;
@@ -71,6 +99,7 @@ button:hover {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 70px;
 }
 
 .delete-btn:hover {
@@ -98,6 +127,21 @@ button:hover {
     justify-content: center;
     align-items: center;
     gap: 25px;
+    margin-block: 40px;
+}
+
+.paginationBtbBox >button{
+    width: 70px;
+    padding: 3px 4px;
+    font-size: 16px;
+    color: white;
+    background-color: rgb(41, 41, 41);
+}
+#secondaryBillTable span {
+    color: red;
+    display: block;
+    text-align: center;
+    font-size: 20px;
 }
 
 /* Inputs and Selects */
@@ -123,6 +167,9 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
     margin-top: 30px;
+    width: fit-content;
+    min-width:700px;
+    margin-inline: auto;
 }
 
 table th,
@@ -130,10 +177,13 @@ table td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ccc;
+    text-align: center;
+   
 }
 
 table th {
     background-color: #2f302f;
+    border-right: 1px solid wheat;
     color: #fff;
     
 }
@@ -148,6 +198,16 @@ table th {
 #recordDelivery {
     margin-top: 20px;
 }
+#latestBills{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+
 
 .select-options {
     display: grid;
@@ -164,6 +224,23 @@ table th {
     margin-left: 5px;
     margin-bottom: 20px;
 }
+
+.flex-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+.flex-input input , button{
+    width: 400px;
+    margin-block: 0px;
+}
+
+.flex-input button{
+  padding-block: 12px;
+  width: 150px;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
