@@ -24,6 +24,7 @@ h3 {
 
 .center-item {
     text-align: center;
+
 }
 
 .hidden {
@@ -68,6 +69,7 @@ button:hover {
 #tempoRentalInput{
     max-width: 400px;
 }
+
 
 #addBillBtn{
  margin: 20px 0px;
@@ -231,8 +233,13 @@ table th {
     flex-direction: column;
     justify-content: center;
     align-items: center; */
-    margin-top: 25px;
+    margin-top: 2px;
     margin-bottom: 40px;
+}
+#todayBtn{
+    width: fit-content;
+    padding: 3px 5px;
+    background-color: gray;
 }
 
 
@@ -263,8 +270,8 @@ table th {
 .delivery-details{
     border-radius: 5px;
     box-shadow: 0px 0px 8px gray;
-    padding:20px;
-    margin-bottom: 40px;
+    padding:10px 20px;
+    margin-bottom: 20px;
 }
 
 
@@ -281,7 +288,7 @@ table th {
 .main-record-inputs-box{
     box-shadow: 0px 0px 7px gray;
     padding: 50px 20px;
-    margin-block: 40px;
+    margin: 10px 0px ;
     border-radius: 10px;
 }
 

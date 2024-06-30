@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create checkboxes for each bill in billsData and show only those billNumbers which are not checked
 
     if (billsData.length === 0) {
-      latestBills.innerHTML = "No bills available";
+      latestBills.innerHTML = "<span>No bills available</span>";
       return;
     }
 
@@ -323,6 +323,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       deliveryTableBody.appendChild(row);
     });
+
+    const convertExcelBtn = document.createElement("button");
+    convertExcelBtn.textContent = "Convert to Excel";
+    convertExcelBtn.classList.add("convert-excel-btn");
+
+    deliveryTableBody.appendChild(convertExcelBtn);
 
     deliveryStatusTable.classList.remove("hidden");
   }
