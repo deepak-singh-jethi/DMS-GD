@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitDeliveryBtn = document.getElementById("submitDeliveryBtn");
   const deliveryStatusTable = document.getElementById("deliveryStatusTable");
   const deliveryTableBody = document.getElementById("deliveryTableBody");
+  //  get all the checkboxes with parent  class  #billCheckboxList and type checkbox
 
   // Event listeners
   secondaryBillBtn.addEventListener("click", function () {
@@ -69,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
   addBillBtn.addEventListener("click", function () {
     const billNumber = billNumberInput.value.trim();
     if (billNumber !== "" && !billsData.includes(billNumber)) {
-      addBillToData(billNumber);
+      // ! add bill to data array
+      addBillToData({ billNumber: billNumber, isChecked: false });
       billNumberInput.value = "";
     } else if (billsData.includes(billNumber)) {
       alert("Bill number already exists!");
@@ -116,6 +118,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let areas = "";
     let quantity = "";
     let cost = "";
+
+    // all checkboxes present in page
+    const billCheckboxes = document.querySelectorAll(
+      "#billCheckboxList input[type=checkbox]"
+    );
+
+    // ! extract those checkbox values which are checked and update the change the billData Array [{billNumber:value1, isChecked:false}... ] and change billData array elements isChecked values
+
+    // create a new array saving all checked bills number
+
+    console.log(billCheckboxes);
 
     if (deliveryMedium === "tempo") {
       areas = getSelectedAreas(
@@ -220,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     billsData.reverse().forEach((bill, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-                <td>${bill}</td>
+                <td>${bill.billNumber}</td>
                 <td><button class="delete-btn" data-index="${index}">Delete</button></td>
             `;
       billTableBody.appendChild(row);
@@ -255,28 +268,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // !  changes needed to show secondary bill inside checkbox
-
   function populateLatestBills() {
     const checkboxList = document.getElementById("billCheckboxList");
 
     // Clear previous checkboxes
     checkboxList.innerHTML = "";
 
-    // Create checkboxes for each bill in billsData
+    // Create checkboxes for each bill in billsData and show only those billNumbers which are not checked
     billsData.forEach((bill) => {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.value = bill;
-      checkbox.id = `billCheckbox_${bill}`; // Optional: Set unique IDs if needed
+      if (!bill.isChecked) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = bill.billNumber;
+        checkbox.id = `billCheckbox_${bill.billNumber}`;
 
-      const label = document.createElement("label");
-      label.textContent = bill;
-      label.setAttribute("for", `billCheckbox_${bill}`);
+        const label = document.createElement("label");
+        label.textContent = bill.billNumber;
+        label.setAttribute("for", `billCheckbox_${bill.billNumber}`);
 
-      // Append checkbox and label to the checkbox list
-      checkboxList.appendChild(checkbox);
-      checkboxList.appendChild(label);
-      checkboxList.appendChild(document.createElement("br")); // Optional: Add line breaks
+        // Append checkbox and label to the checkbox list
+        checkboxList.appendChild(checkbox);
+        checkboxList.appendChild(label);
+        checkboxList.appendChild(document.createElement("br")); // Optional: Add line breaks
+      }
     });
   }
 });
