@@ -1,0 +1,277 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #444;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.center-item {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Buttons */
+button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.heading-btn-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.heading-btn-box>#submitDeliveryBtn {
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.main-button,
+#addBillBtn {
+    width: fit-content;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background-color: #4c98dc;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+#deliveryMedium {
+    max-width: 400px;
+    margin-inline: auto;
+}
+
+.delivery-inputs-conatiner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.delivery-inputs-conatiner input {
+    max-width: 400px;
+}
+
+.main-heading {
+    color: #0f4a8a;
+}
+
+.delete-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 70px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.paginationBtn {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.paginationBtn:hover {
+    background-color: #218838;
+}
+
+.paginationBtbBox {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-block: 40px;
+}
+
+.paginationBtbBox>button {
+    width: 70px;
+    padding: 3px 4px;
+    font-size: 16px;
+    color: white;
+    background-color: rgb(41, 41, 41);
+}
+
+#secondaryBillTable span {
+    color: red;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Inputs and Selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    width: fit-content;
+    min-width: 700px;
+    margin-inline: auto;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+
+}
+
+table th {
+    background-color: #2f302f;
+    border-right: 1px solid wheat;
+    color: #fff;
+
+}
+
+
+#deliveryTableBody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Specific Section Styles */
+#secondaryBillDetails,
+#recordDelivery {
+    margin-top: 20px;
+}
+
+#latestBills {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+
+
+.select-options {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+#totalCostDisplay,
+#totalCostDisplayPickup {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
+
+.flex-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.flex-input input,
+button {
+    width: 400px;
+    margin-block: 0px;
+}
+
+.flex-input button {
+    padding-block: 12px;
+    width: 150px;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    button {
+        width: calc(100% - 20px);
+        margin: 10px 0;
+    }
+
+    table th,
+    table td {
+        padding: 8px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: calc(100% - 12px);
+        padding: 8px;
+    }
+}
