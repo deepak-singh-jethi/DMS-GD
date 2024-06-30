@@ -52,6 +52,7 @@
         <div class="delivery-medium-container">
           <h3>Delivery Medium</h3>
           <select id="deliveryMedium">
+            <option disabled selected>Select Delivery Medium</option>
             <option value="tempo">Tempo</option>
             <option value="pickup">Pickup</option>
             <option value="bus">Bus</option>
@@ -171,6 +172,11 @@
               placeholder="Enter area name" />
           </div>
           <div class="total-cost">
+            <label for="busTotalQuantity">Total Quantity:</label>
+            <input type="number" id="busTotalQuantity" min="0" />
+          </div>
+
+          <div class="total-cost">
             <label for="busTotalCostInput">Total Cost:</label>
             <input type="number" id="busTotalCostInput" min="0" />
           </div>
@@ -185,11 +191,13 @@
         <table id="deliveryStatusTable" class="hidden">
           <thead>
             <tr>
+              <th>Bill Numbers</th>
               <th>Date</th>
               <th>Delivery Medium</th>
               <th>Areas</th>
               <th>Quantity</th>
               <th>Cost</th>
+              <th>Additional Details</th>
             </tr>
           </thead>
           <tbody id="deliveryTableBody"></tbody>

@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "tempoHaathKharchaInput"
   );
   const busAreaInput = document.getElementById("busAreaInput");
+  const busTotalQuantity = document.getElementById("busTotalQuantity");
   const busTotalCostInput = document.getElementById("busTotalCostInput");
+
   const totalCostDisplay = document.getElementById("totalCostDisplay");
   const totalCostDisplayPickup = document.getElementById(
     "totalCostDisplayPickup"
@@ -39,8 +41,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitDeliveryBtn = document.getElementById("submitDeliveryBtn");
   const deliveryStatusTable = document.getElementById("deliveryStatusTable");
   const deliveryTableBody = document.getElementById("deliveryTableBody");
-  //  get all the checkboxes with parent  class  #billCheckboxList and type checkbox
+  totalCartoonsInput.addEventListener("input", calculateTempoTotalCost);
+  tempoRentalInput.addEventListener("input", calculateTempoTotalCost);
+  totalCartoonsInputPickup.addEventListener("input", calculatePickupTotalCost);
+  totalPetrolInput.addEventListener("input", calculatePickupTotalCost);
+  tempoHaathKharchaInput.addEventListener("input", calculatePickupTotalCost);
+  busTotalCostInput.addEventListener("input", calculateBusTotalCost);
 
+  let currentPage = 1;
+  let billsData = [];
+  let deliveryHistory = [];
   // Event listeners
   secondaryBillBtn.addEventListener("click", function () {
     secondaryBillDetails.classList.remove("hidden");
@@ -105,30 +115,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  totalCartoonsInput.addEventListener("input", calculateTempoTotalCost);
-  tempoRentalInput.addEventListener("input", calculateTempoTotalCost);
-  totalCartoonsInputPickup.addEventListener("input", calculatePickupTotalCost);
-  totalPetrolInput.addEventListener("input", calculatePickupTotalCost);
-  tempoHaathKharchaInput.addEventListener("input", calculatePickupTotalCost);
-  busTotalCostInput.addEventListener("input", calculateBusTotalCost);
-
   submitDeliveryBtn.addEventListener("click", function () {
     const date = datepickerInput.value;
     const deliveryMedium = deliveryMediumSelect.value;
     let areas = "";
     let quantity = "";
     let cost = "";
+    let additionalDetails = {};
 
-    // all checkboxes present in page
+    // Extract checked bill checkboxes
     const billCheckboxes = document.querySelectorAll(
-      "#billCheckboxList input[type=checkbox]"
+      "#billCheckboxList input[type=checkbox]:checked"
+    );
+    const checkedBillNumbers = Array.from(billCheckboxes).map(
+      (checkbox) => checkbox.value
     );
 
-    // ! extract those checkbox values which are checked and update the change the billData Array [{billNumber:value1, isChecked:false}... ] and change billData array elements isChecked values
-
-    // create a new array saving all checked bills number
-
-    console.log(billCheckboxes);
+    // change bill data if any bill is used
+    changeBillData(checkedBillNumbers);
 
     if (deliveryMedium === "tempo") {
       areas = getSelectedAreas(
@@ -136,22 +140,48 @@ document.addEventListener("DOMContentLoaded", function () {
           '#tickmarkOptions input[type="checkbox"]:checked'
         )
       );
-      quantity = totalCartoonsInput.value;
       cost = totalCostDisplay.textContent;
+      quantity = totalCartoonsInput.value;
+
+      additionalDetails = {
+        tempo_Rental: tempoRentalInput.value,
+      };
     } else if (deliveryMedium === "pickup") {
       areas = getSelectedAreas(
         document.querySelectorAll(
           '#pickupTickmarks input[type="checkbox"]:checked'
         )
       );
-      quantity = totalCartoonsInputPickup.value;
       cost = totalCostDisplayPickup.textContent;
+      quantity = totalCartoonsInputPickup.value;
+      additionalDetails = {
+        total_Petrol: totalPetrolInput.value,
+        Tempo_Haath_Kharcha: tempoHaathKharchaInput.value,
+      };
     } else if (deliveryMedium === "bus") {
       areas = busAreaInput.value;
       cost = busTotalCostInput.value;
+      quantity = busTotalQuantity.value;
     }
+    deliveryHistory.push({
+      date: date,
+      deliveryMedium: deliveryMedium,
+      areas: areas,
+      quantity: quantity,
+      cost: cost,
+      checkedBillNumbers: checkedBillNumbers,
+      additionalDetails: additionalDetails,
+    });
 
-    addDeliveryToTable(date, deliveryMedium, areas, quantity, cost);
+    addDeliveryToTable(
+      date,
+      deliveryMedium,
+      areas,
+      quantity,
+      cost,
+      checkedBillNumbers,
+      additionalDetails
+    );
     clearLatestBills();
   });
 
@@ -162,16 +192,45 @@ document.addEventListener("DOMContentLoaded", function () {
     return selectedAreas.join(", ");
   }
 
-  function addDeliveryToTable(date, deliveryMedium, areas, quantity, cost) {
+  function addDeliveryToTable(
+    date,
+    deliveryMedium,
+    areas,
+    quantity,
+    cost,
+    checkedBillNumbers,
+    additionalDetails
+  ) {
     const row = document.createElement("tr");
+
+    // Function to format keys for display
+    function formatKey(key) {
+      // Replace underscores with spaces and capitalize each word
+      return key
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    }
+
+    // Render additional details object into a string format
+    let additionalDetailsString = "";
+    if (additionalDetails) {
+      additionalDetailsString = Object.entries(additionalDetails)
+        .map(([key, value]) => `<strong>${formatKey(key)}:</strong> ${value}`)
+        .join("<br>");
+    }
+
     row.innerHTML = `
-            <td>${date}</td>
-            <td>${deliveryMedium}</td>
-            <td>${areas}</td>
-            <td>${quantity}</td>
-            <td>${cost}</td>
-        `;
-    deliveryTableBody.appendChild(row);
+    <td>${checkedBillNumbers.join(", ")}</td>
+    <td>${date}</td>
+    <td>${deliveryMedium}</td>
+    <td>${areas}</td>
+    <td>${quantity}</td>
+    <td>${cost}</td>
+    <td>${additionalDetailsString}</td>
+  `;
+
+    deliveryTableBody.prepend(row);
     deliveryStatusTable.classList.remove("hidden");
   }
 
@@ -219,9 +278,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return `${year}-${month}-${day}`;
   }
 
-  let currentPage = 1;
-  let billsData = [];
-
   function addBillToData(billNumber) {
     billsData.push(billNumber);
     renderBillTable();
@@ -267,14 +323,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // !  changes needed to show secondary bill inside checkbox
+  // !  changes  show secondary bill inside checkbox
   function populateLatestBills() {
-    const checkboxList = document.getElementById("billCheckboxList");
+    const checkboxListDiv = document.createElement("div");
+    checkboxListDiv.id = "billCheckboxList";
 
-    // Clear previous checkboxes
-    checkboxList.innerHTML = "";
+    latestBills.innerHTML = "";
 
     // Create checkboxes for each bill in billsData and show only those billNumbers which are not checked
+    console.log(billsData);
     billsData.forEach((bill) => {
       if (!bill.isChecked) {
         const checkbox = document.createElement("input");
@@ -287,10 +344,20 @@ document.addEventListener("DOMContentLoaded", function () {
         label.setAttribute("for", `billCheckbox_${bill.billNumber}`);
 
         // Append checkbox and label to the checkbox list
-        checkboxList.appendChild(checkbox);
-        checkboxList.appendChild(label);
-        checkboxList.appendChild(document.createElement("br")); // Optional: Add line breaks
+        checkboxListDiv.appendChild(checkbox);
+        checkboxListDiv.appendChild(label);
+        checkboxListDiv.appendChild(document.createElement("br"));
+        latestBills.appendChild(checkboxListDiv);
       }
     });
   }
+
+  // !  changes to change bill data if any bill is used during recording a delivery
+  const changeBillData = (checkedBillNumbers) => {
+    billsData.forEach((bill) => {
+      if (checkedBillNumbers.includes(bill.billNumber)) {
+        bill.isChecked = true;
+      }
+    });
+  };
 });
