@@ -1,8 +1,8 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
+    background-color: #f0f0f0;
+    color: #444;
     margin: 0;
     padding: 20px;
 }
@@ -19,8 +19,12 @@ body {
 h1,
 h2,
 h3 {
-    color: #0056b3;
+    color: #007bff;
     margin-bottom: 10px;
+}
+
+.center-item {
+    text-align: center;
 }
 
 .hidden {
@@ -50,125 +54,12 @@ button:hover {
     margin-bottom: 20px;
 }
 
-/* Input Styles */
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
+.back-button {
+    background-color: #6c757d;
 }
 
-/* Table Styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-table th,
-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-}
-
-table th {
-    background-color: #f2f2f2;
-}
-
-.paginationBtbBox {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-}
-
-.paginationBtn {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #28a745;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.paginationBtn:hover {
-    background-color: #218838;
-}
-
-/* Specific Section Styles */
-#secondaryBillDetails,
-#recordDelivery {
-    margin-top: 20px;
-}
-
-#secondaryBillDetails input,
-#recordDelivery input,
-#recordDelivery select {
-    margin-top: 10px;
-}
-
-.tickmark-options,
-.total-cartoons,
-.tempo-rental,
-.total-cost,
-.total-petrol,
-.tempo-haath-kharcha,
-.select-area,
-.delivery-medium-container,
-.datepicker-container {
-    max-width: 400px;
-    margin-top: 20px;
-}
-
-.tickmark-options label,
-.tickmark-options input,
-.total-cartoons input,
-.tempo-rental input,
-.total-cost span,
-.select-area label,
-.delivery-medium-container select,
-.datepicker-container input,
-.datepicker-container button {
-    max-width: 400px;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-#totalCostDisplay,
-#totalCostDisplayPickup {
-    font-weight: bold;
-    color: #28a745;
-}
-
-.tickmark-options label,
-.tickmark-options input {
-    margin-bottom: 5px;
-}
-
-.tickmark-options {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.tickmark-options label {
-    width: 120px;
-}
-
-#totalCostDisplay,
-#totalCostDisplayPickup {
-    display: inline-block;
-    margin-left: 5px;
+.back-button:hover {
+    background-color: #5a6268;
 }
 
 .delete-btn {
@@ -186,29 +77,92 @@ table th {
     background-color: #c82333;
 }
 
-/* Delivery Table */
-#deliveryStatusTable {
-    margin-top: 20px;
+.paginationBtn {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#deliveryStatusTable table {
+.paginationBtn:hover {
+    background-color: #218838;
+}
+
+.paginationBtbBox {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Inputs and Selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Tables */
+table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 30px;
 }
 
-#deliveryStatusTable th,
-#deliveryStatusTable td {
+table th,
+table td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ccc;
 }
 
-#deliveryStatusTable th {
-    background-color: #f2f2f2;
+table th {
+    background-color: #2f302f;
+    color: #fff;
+    
 }
+
 
 #deliveryTableBody tr:nth-child(even) {
     background-color: #f9f9f9;
+}
+
+/* Specific Section Styles */
+#secondaryBillDetails,
+#recordDelivery {
+    margin-top: 20px;
+}
+
+.select-options {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+#totalCostDisplay,
+#totalCostDisplayPickup {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+    margin-left: 5px;
+    margin-bottom: 20px;
 }
 
 /* Responsive Design */

@@ -1,0 +1,125 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Centering */
+.center-item {
+    text-align: center;
+}
+
+/* Buttons */
+.main-button,
+.back-button,
+.paginationBtn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main-button:hover,
+.back-button:hover,
+.paginationBtn:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Inputs and Selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.paginationBtbBox {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Specific Sections */
+#secondaryBillDetails,
+#recordDelivery,
+#busDetails,
+#tempoDetails,
+#pickupDetails {
+    margin-top: 20px;
+}
+
+#tickmarkOptions,
+#pickupTickmarks {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#tickmarkOptions label,
+#pickupTickmarks label {
+    width: 48%;
+    margin: 5px 0;
+}
+
+/* Utility Classes */
+.delivery-inputs-conatiner {
+    margin-bottom: 15px;
+}
+
+.total-cost {
+    font-weight: bold;
+    color: #007bff;
+}
+
+h2,
+h3 {
+    color: #333;
+    margin-bottom: 10px;
+}

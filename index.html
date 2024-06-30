@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>DELIVERY MANAGEMENT SYSTEM - GD ENTERPRISES</h1>
+      <h1 class="center-item">DELIVERY MANAGEMENT SYSTEM - GD ENTERPRISES</h1>
       <button id="secondaryBillBtn" class="main-button">
         Secondary Bill Details
       </button>
@@ -17,7 +17,7 @@
       </button>
 
       <div id="secondaryBillDetails" class="hidden">
-        <h2>Secondary Bill Details</h2>
+        <h2 class="center-item">Secondary Bill Details</h2>
         <input
           type="text"
           id="billNumberInput"
@@ -39,18 +39,18 @@
       </div>
 
       <div id="recordDelivery" class="hidden">
-        <h2>Record a Delivery</h2>
-        <h3>Bill Numbers</h3>
+        <h2 class="center-item">Record a Delivery</h2>
+        <h3 style="color: #007bff">Bill Numbers</h3>
         <div id="latestBills">
           <!-- ! changes done here to show secondary bills with checkbox -->
           <div id="billCheckboxList"></div>
         </div>
-        <div class="datepicker-container">
+        <div class="delivery-inputs-conatiner">
           <input type="date" id="datepicker" placeholder="Select Date" />
           <button id="todayBtn">Today</button>
         </div>
-        <div class="delivery-medium-container">
-          <h3>Delivery Medium</h3>
+        <div class="delivery-inputs-conatiner">
+          <h3 style="color: #007bff">Delivery Medium</h3>
           <select id="deliveryMedium">
             <option disabled selected>Select Delivery Medium</option>
             <option value="tempo">Tempo</option>
@@ -58,11 +58,14 @@
             <option value="bus">Bus</option>
           </select>
         </div>
+
+        <!-- tempo -->
         <div id="tempoDetails" class="hidden delivery-details">
-          <h3>Tempo Details</h3>
-          <div class="select-area">
-            <label for="tempoAreaSelect">Select Area:</label>
-            <div id="tickmarkOptions" class="tickmark-options">
+          <h3 class="center-item">Tempo Details</h3>
+          <!-- 1st input -->
+          <div class="select-area delivery-inputs-conatiner">
+            <h3 for="tempoAreaSelect">Select Area:</h3>
+            <div id="tickmarkOptions" class="select-options">
               <label><input type="checkbox" value="baihata" /> Baihata</label>
               <label
                 ><input type="checkbox" value="vijaynagar" /> Vijaynagar</label
@@ -86,24 +89,31 @@
               >
             </div>
           </div>
-          <div class="total-cartoons">
-            <label for="totalCartoonsInput">Total Cartoons:</label>
+          <!-- 2nd input -->
+          <div class="delivery-inputs-conatiner">
+            <h3 for="totalCartoonsInput">Total Cartoons:</h3>
             <input type="number" id="totalCartoonsInput" min="0" />
           </div>
-          <div class="tempo-rental">
-            <label for="tempoRentalInput">Tempo Rental:</label>
+
+          <!-- 3rd input -->
+          <div class="delivery-inputs-conatiner">
+            <h3 for="tempoAreaSelect">Tempo Rental:</h3>
             <input type="number" id="tempoRentalInput" min="0" />
           </div>
-          <div class="total-cost">
-            <label>Total Cost:</label>
+          <!-- 4th input -->
+          <div class="delivery-inputs-conatiner">
+            <h3 class="tempoAreaSelect">Total Cost:</h3>
             <span id="totalCostDisplay">0</span>
           </div>
         </div>
+
+        <!-- pickup details -->
         <div id="pickupDetails" class="hidden delivery-details">
-          <h3>Pickup Details</h3>
-          <div class="select-area">
-            <label for="pickupAreaSelect">Select Area:</label>
-            <div id="pickupTickmarks" class="tickmark-options">
+          <h3 class="center-item">Pickup Details</h3>
+          <!-- 1st input -->
+          <div class="delivery-inputs-conatiner">
+            <h3 for="pickupAreaSelect">Select Area:</h3>
+            <div id="pickupTickmarks" class="select-options">
               <label
                 ><input type="checkbox" value="mankechar" /> Mankechar</label
               >
@@ -145,39 +155,48 @@
               <label><input type="checkbox" value="agia" /> Agia</label>
             </div>
           </div>
-          <div class="total-cartoons">
-            <label for="totalCartoonsInputPickup">Total Cartoons:</label>
+          <!-- 2nd input -->
+          <div class="delivery-inputs-conatiner">
+            <h3 for="totalCartoonsInputPickup">Total Cartoons:</h3>
             <input type="number" id="totalCartoonsInputPickup" min="0" />
           </div>
-          <div class="total-petrol">
-            <label for="totalPetrolInput">Total Petrol Consumed:</label>
+
+          <!-- 3rd input -->
+          <div class="delivery-inputs-conatiner">
+            <h3 for="totalPetrolInput">Total Petrol Consumed:</h3>
             <input type="number" id="totalPetrolInput" min="0" />
           </div>
-          <div class="tempo-haath-kharcha">
-            <label for="tempoHaathKharchaInput">Tempo Haath Kharcha:</label>
+
+          <!-- 4th input -->
+          <div class="delivery-inputs-conatiner">
+            <h3 for="tempoHaathKharchaInput">Tempo Haath Kharcha:</h3>
             <input type="number" id="tempoHaathKharchaInput" min="0" />
           </div>
-          <div class="total-cost">
-            <label>Total Cost:</label>
+
+          <!-- 5th input -->
+          <div class="delivery-inputs-conatiner">
+            <h3>Total Cost:</h3>
             <span id="totalCostDisplayPickup">0</span>
           </div>
         </div>
+
+        <!-- bus -->
         <div id="busDetails" class="hidden delivery-details">
-          <h3>Bus Details</h3>
-          <div class="select-area">
-            <label for="busAreaInput">Area:</label>
+          <h3 class="center-item">Bus Details</h3>
+          <div class="delivery-inputs-conatiner">
+            <h3 for="busAreaInput">Area:</h3>
             <input
               type="text"
               id="busAreaInput"
               placeholder="Enter area name" />
           </div>
-          <div class="total-cost">
-            <label for="busTotalQuantity">Total Quantity:</label>
+          <div class="delivery-inputs-conatiner">
+            <h3 for="busTotalQuantity">Total Quantity:</h3>
             <input type="number" id="busTotalQuantity" min="0" />
           </div>
 
           <div class="total-cost">
-            <label for="busTotalCostInput">Total Cost:</label>
+            <h3 for="busTotalCostInput">Total Cost:</h3>
             <input type="number" id="busTotalCostInput" min="0" />
           </div>
         </div>
@@ -189,6 +208,7 @@
 
         <!-- Delivery Status Table -->
         <table id="deliveryStatusTable" class="hidden">
+          <title>Delivery status Table</title>
           <thead>
             <tr>
               <th>Bill Numbers</th>
@@ -209,7 +229,7 @@
         </div>
       </div>
 
-      <div id="backToHome" class="hidden">
+      <div id="backToHome" class="hidden center-item">
         <button id="backHomeBtn" class="back-button">Back to Home</button>
       </div>
     </div>
