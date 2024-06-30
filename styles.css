@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.main-button {
+    display: inline-block;
+    margin: 10px;
+    padding: 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.main-button:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+.delivery-details {
+    margin-top: 20px;
+}
+
+.tickmark-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tickmark-options label {
+    display: block;
+}
+
+.total-cartoons,
+.tempo-rental,
+.total-petrol,
+.tempo-haath-kharcha {
+    margin-top: 10px;
+}
+
+.total-cost {
+    margin-top: 10px;
+}
+
+.total-cost label {
+    font-weight: bold;
+}
+
+#deliveryStatusTable {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+#deliveryStatusTable th,
+#deliveryStatusTable td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#deliveryStatusTable th {
+    background-color: #f2f2f2;
+}
+
+.datepicker-container {
+    margin-top: 20px;
+}
+
+.datepicker-container input[type="date"],
+.datepicker-container button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.delivery-medium-container {
+    margin-top: 20px;
+}
+
+.delivery-medium-container select {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+}
