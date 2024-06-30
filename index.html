@@ -32,17 +32,17 @@
           </thead>
           <tbody id="billTableBody"></tbody>
         </table>
-        <div id="paginationButtons" class="hidden">
-          <button id="prevPageBtn">Previous</button>
-          <button id="nextPageBtn">Next</button>
+        <div id="paginationButtons" class="paginationBtbBox">
+          <button id="billPrevPageBtn" class="paginationBtn">Prev</button>
+          <button id="billNextPageBtn" class="paginationBtn">Next</button>
         </div>
       </div>
 
       <div id="recordDelivery" class="hidden">
         <h2>Record a Delivery</h2>
+        <h3>Bill Numbers</h3>
         <div id="latestBills">
           <!-- ! changes done here to show secondary bills with checkbox -->
-          <h3>Bill Numbers</h3>
           <div id="billCheckboxList"></div>
         </div>
         <div class="datepicker-container">
@@ -202,10 +202,10 @@
           </thead>
           <tbody id="deliveryTableBody"></tbody>
         </table>
-        <!-- pagination -->
-        <div id="paginate">
-          <button id="prev">Prev</button>
-          <button id="next">Next</button>
+        <!-- pagination for record -->
+        <div class="paginationBtbBox">
+          <button id="recordPrevPageBtn" class="paginationBtn">Prev</button>
+          <button id="recordNextPageBtn" class="paginationBtn">Next</button>
         </div>
       </div>
 

@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const addBillBtn = document.getElementById("addBillBtn");
   const billTableBody = document.getElementById("billTableBody");
   const paginationButtons = document.getElementById("paginationButtons");
-  const prevPageBtn = document.getElementById("prevPageBtn");
-  const nextPageBtn = document.getElementById("nextPageBtn");
+
+  const billPrevPageBtn = document.getElementById("billPrevPageBtn");
+  const billNextPageBtn = document.getElementById("billNextPageBtn");
+
   const latestBills = document.getElementById("latestBills");
   const datepickerInput = document.getElementById("datepicker");
   const todayBtn = document.getElementById("todayBtn");
@@ -42,10 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const deliveryStatusTable = document.getElementById("deliveryStatusTable");
   const deliveryTableBody = document.getElementById("deliveryTableBody");
 
-  //   ! pagination
-  const paginationBox = document.getElementById("paginate");
-  const prev = document.getElementById("prev");
-  const next = document.getElementById("next");
+  const recordPrevPageBtn = document.getElementById("recordPrevPageBtn");
+  const recordNextPageBtn = document.getElementById("recordNextPageBtn");
 
   totalCartoonsInput.addEventListener("input", calculateTempoTotalCost);
   tempoRentalInput.addEventListener("input", calculateTempoTotalCost);
@@ -54,12 +54,15 @@ document.addEventListener("DOMContentLoaded", function () {
   tempoHaathKharchaInput.addEventListener("input", calculatePickupTotalCost);
   busTotalCostInput.addEventListener("input", calculateBusTotalCost);
 
-  let currentPage = 1;
-  let rowsPerPage = 30;
-  let start = 0;
+  let currentBillPage = 1;
+  let billPageSize = 5;
+
+  let deliveryRecordPage = 1;
+  let deliveryRecordPageSize = 2;
 
   let billsData = [];
   let deliveryHistory = [];
+
   // Event listeners
   secondaryBillBtn.addEventListener("click", function () {
     secondaryBillDetails.classList.remove("hidden");
@@ -67,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     busDetails.classList.add("hidden");
     backToHome.classList.remove("hidden");
     hideMainButtons();
-    showPage(currentPage);
+    showPageBills(currentBillPage);
   });
 
   recordDeliveryBtn.addEventListener("click", function () {
@@ -82,19 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
   backHomeBtn.addEventListener("click", function () {
     backToHome.classList.add("hidden");
     showMainButtons();
-    currentPage = 1;
-    hidePagination();
-  });
-
-  addBillBtn.addEventListener("click", function () {
-    const billNumber = billNumberInput.value.trim();
-    if (billNumber !== "" && !billsData.includes(billNumber)) {
-      // ! add bill to data array
-      addBillToData({ billNumber: billNumber, isChecked: false });
-      billNumberInput.value = "";
-    } else if (billsData.includes(billNumber)) {
-      alert("Bill number already exists!");
-    }
+    currentBillPage = 1;
   });
 
   todayBtn.addEventListener("click", function () {
@@ -182,60 +173,71 @@ document.addEventListener("DOMContentLoaded", function () {
       additionalDetails,
     });
 
-    console.log(deliveryHistory);
-
-    // show only from 0,30
-    addDeliveryToTable({ start: 0, end: 30 });
+    // show only first page
+    showRecords(1);
     clearLatestBills();
   });
+
+  // event listeners for pagination in record page
+
+  recordPrevPageBtn.addEventListener("click", function () {
+    if (deliveryRecordPage > 1) {
+      deliveryRecordPage--;
+      console.log(deliveryRecordPage);
+      showRecords(deliveryRecordPage);
+    }
+  });
+
+  recordNextPageBtn.addEventListener("click", function () {
+    console.log("next");
+    if (deliveryRecordPage * deliveryRecordPageSize < deliveryHistory.length) {
+      deliveryRecordPage++;
+      showRecords(deliveryRecordPage);
+    }
+  });
+
+  //  showing only unchecked bill in record page
+  function populateLatestBills() {
+    handleRecordPaginationButtonDisplay();
+    const checkboxListDiv = document.createElement("div");
+    checkboxListDiv.id = "billCheckboxList";
+
+    latestBills.innerHTML = "";
+
+    // Create checkboxes for each bill in billsData and show only those billNumbers which are not checked
+
+    if (billsData.length === 0) {
+      latestBills.innerHTML = "No bills available";
+      return;
+    }
+
+    // ! latest bill first
+
+    billsData.forEach((bill) => {
+      if (!bill.isChecked) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = bill.billNumber;
+        checkbox.id = `billCheckbox_${bill.billNumber}`;
+
+        const label = document.createElement("label");
+        label.textContent = bill.billNumber;
+        label.setAttribute("for", `billCheckbox_${bill.billNumber}`);
+
+        // Append checkbox and label to the checkbox list
+        checkboxListDiv.appendChild(checkbox);
+        checkboxListDiv.appendChild(label);
+        checkboxListDiv.appendChild(document.createElement("br"));
+        latestBills.appendChild(checkboxListDiv);
+      }
+    });
+  }
 
   function getSelectedAreas(checkboxes) {
     const selectedAreas = Array.from(checkboxes).map(
       (checkbox) => checkbox.value
     );
     return selectedAreas.join(", ");
-  }
-
-  function addDeliveryToTable({ start, end }) {
-    const deliveryTableBody = document.getElementById("deliveryTableBody");
-    deliveryTableBody.innerHTML = "";
-
-    // Function to format keys for display
-    function formatKey(key) {
-      // Replace underscores with spaces and capitalize each word
-      return key
-        .split("_")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-    }
-
-    // Render deliveries from deliveryHistory array
-    deliveryHistory.slice(start, end).forEach((element) => {
-      const row = document.createElement("tr");
-
-      let additionalDetailsString = "";
-
-      if (element.additionalDetails) {
-        additionalDetailsString = Object.entries(element.additionalDetails)
-          .map(([key, value]) => `<strong>${formatKey(key)}:</strong> ${value}`)
-          .join("<br>");
-      }
-
-      row.innerHTML = `
-       <td>${element.checkedBillNumbers.join(", ")}</td>
-      <td>${element.date}</td>
-      <td>${element.deliveryMedium}</td>
-      <td>${element.areas}</td>
-      <td>${element.quantity}</td>
-      <td>${element.cost}</td>
-     
-      <td>${additionalDetailsString}</td>
-    `;
-
-      deliveryTableBody.appendChild(row);
-    });
-
-    deliveryStatusTable.classList.remove("hidden");
   }
 
   function clearLatestBills() {
@@ -282,15 +284,119 @@ document.addEventListener("DOMContentLoaded", function () {
     return `${year}-${month}-${day}`;
   }
 
-  function addBillToData(billNumber) {
-    billsData.push(billNumber);
-    renderBillTable();
+  // render bills
+  function renderTable(deliveries) {
+    const deliveryTableBody = document.getElementById("deliveryTableBody");
+    deliveryTableBody.innerHTML = "";
+
+    // Function to format keys for display
+    function formatKey(key) {
+      // Replace underscores with spaces and capitalize each word
+      return key
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    }
+
+    // Render deliveries from deliveries array
+    deliveries.forEach((element) => {
+      const row = document.createElement("tr");
+
+      let additionalDetailsString = "";
+
+      if (element.additionalDetails) {
+        additionalDetailsString = Object.entries(element.additionalDetails)
+          .map(([key, value]) => `<strong>${formatKey(key)}:</strong> ${value}`)
+          .join("<br>");
+      }
+
+      row.innerHTML = `
+       <td>${element.checkedBillNumbers.join(", ")}</td>
+      <td>${element.date}</td>
+      <td>${element.deliveryMedium}</td>
+      <td>${element.areas}</td>
+      <td>${element.quantity}</td>
+      <td>${element.cost}</td>
+     
+      <td>${additionalDetailsString}</td>
+    `;
+
+      deliveryTableBody.appendChild(row);
+    });
+
+    deliveryStatusTable.classList.remove("hidden");
   }
 
-  function renderBillTable() {
+  const handleRecordPaginationButtonDisplay = () => {
+    recordNextPageBtn.style.display =
+      deliveryRecordPage * deliveryRecordPageSize < deliveryHistory.length
+        ? "block"
+        : "none";
+
+    recordPrevPageBtn.style.display = deliveryRecordPage > 1 ? "block" : "none";
+  };
+
+  const showRecords = (pageNumber) => {
+    const startIndex = (pageNumber - 1) * deliveryRecordPageSize;
+    const endIndex = startIndex + deliveryRecordPageSize;
+    const recordsToShow = deliveryHistory.slice(startIndex, endIndex);
+    handleRecordPaginationButtonDisplay();
+    renderTable(recordsToShow);
+  };
+
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
+  //* bill data function and event handlers
+
+  addBillBtn.addEventListener("click", function () {
+    const billNumber = billNumberInput.value.trim();
+
+    if (
+      billNumber !== "" &&
+      !billsData.some((bill) => bill.billNumber === billNumber)
+    ) {
+      // If billNumber is not empty and there's no existing bill with the same number
+      addBillToData({ billNumber: billNumber, isChecked: false });
+      billNumberInput.value = "";
+    } else {
+      alert("Bill number already exists!");
+    }
+  });
+
+  billNextPageBtn.addEventListener("click", () => {
+    console.log({ currentBillPage });
+    if (currentBillPage * billPageSize < billsData.length) {
+      currentBillPage++;
+      console.log(currentBillPage);
+      showPageBills(currentBillPage);
+    }
+  });
+
+  billPrevPageBtn.addEventListener("click", () => {
+    if (currentBillPage > 1) {
+      currentBillPage--;
+      showPageBills(currentBillPage);
+    }
+  });
+
+  // add new bill to global variable
+  function addBillToData(billNumber) {
+    billsData.unshift(billNumber);
+    showPageBills(1);
+  }
+
+  // rendering 5 bills on display
+  function renderBillTable(billsToShow) {
     billTableBody.innerHTML = "";
     // ! latest bill first
-    billsData.reverse().forEach((bill, index) => {
+    billsToShow.forEach((bill, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
                 <td>${bill.billNumber}</td>
@@ -298,27 +404,8 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
       billTableBody.appendChild(row);
     });
-    updatePagination();
   }
-
-  function updatePagination() {
-    if (billsData.length > 5) {
-      paginationButtons.classList.remove("hidden");
-    } else {
-      paginationButtons.classList.add("hidden");
-    }
-  }
-
-  function hidePagination() {
-    paginationButtons.classList.add("hidden");
-  }
-
-  function showPage(pageNumber) {
-    const startIndex = (pageNumber - 1) * 5;
-    const billsToShow = billsData.slice(startIndex, startIndex + 5);
-    renderBillTable(billsToShow);
-  }
-
+  // delete a bill
   billTableBody.addEventListener("click", function (event) {
     if (event.target.classList.contains("delete-btn")) {
       const index = event.target.getAttribute("data-index");
@@ -327,36 +414,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // !  changes  show secondary bill inside checkbox
-  function populateLatestBills() {
-    const checkboxListDiv = document.createElement("div");
-    checkboxListDiv.id = "billCheckboxList";
+  // display and hide pagination buttons
+  function handleBillsPaginationButtonDisplay() {
+    billNextPageBtn.style.display =
+      currentBillPage * billPageSize < billsData.length ? "block" : "none";
 
-    latestBills.innerHTML = "";
-
-    // Create checkboxes for each bill in billsData and show only those billNumbers which are not checked
-    console.log(billsData);
-    billsData.forEach((bill) => {
-      if (!bill.isChecked) {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.value = bill.billNumber;
-        checkbox.id = `billCheckbox_${bill.billNumber}`;
-
-        const label = document.createElement("label");
-        label.textContent = bill.billNumber;
-        label.setAttribute("for", `billCheckbox_${bill.billNumber}`);
-
-        // Append checkbox and label to the checkbox list
-        checkboxListDiv.appendChild(checkbox);
-        checkboxListDiv.appendChild(label);
-        checkboxListDiv.appendChild(document.createElement("br"));
-        latestBills.appendChild(checkboxListDiv);
-      }
-    });
+    billPrevPageBtn.style.display = currentBillPage > 1 ? "block" : "none";
   }
 
-  // !  changes to change bill data if any bill is used during recording a delivery
+  // handle which bill to show
+  function showPageBills(pageNumber) {
+    const startIndex = (pageNumber - 1) * billPageSize;
+    const billsToShow = billsData.slice(startIndex, startIndex + billPageSize);
+    handleBillsPaginationButtonDisplay();
+    renderBillTable(billsToShow);
+  }
+
+  // change bill data if it is already used
   const changeBillData = (checkedBillNumbers) => {
     billsData.forEach((bill) => {
       if (checkedBillNumbers.includes(bill.billNumber)) {
