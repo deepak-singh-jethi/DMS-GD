@@ -1,112 +1,237 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    margin: 0;
+    padding: 20px;
 }
 
 .container {
-    text-align: center;
-    margin-top: 50px;
-}
-
-.main-button {
-    display: inline-block;
-    margin: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.main-button:hover {
-    background-color: #0056b3;
+h1,
+h2,
+h3 {
+    color: #0056b3;
+    margin-bottom: 10px;
 }
 
 .hidden {
     display: none;
 }
 
-.back-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #6c757d;
-    color: white;
+/* Buttons */
+button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.back-button:hover {
-    background-color: #5a6268;
+button:hover {
+    background-color: #0056b3;
 }
 
-.delivery-details {
+.main-button {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+.paginationBtbBox {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.paginationBtn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.paginationBtn:hover {
+    background-color: #218838;
+}
+
+/* Specific Section Styles */
+#secondaryBillDetails,
+#recordDelivery {
     margin-top: 20px;
+}
+
+#secondaryBillDetails input,
+#recordDelivery input,
+#recordDelivery select {
+    margin-top: 10px;
+}
+
+.tickmark-options,
+.total-cartoons,
+.tempo-rental,
+.total-cost,
+.total-petrol,
+.tempo-haath-kharcha,
+.select-area,
+.delivery-medium-container,
+.datepicker-container {
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+.tickmark-options label,
+.tickmark-options input,
+.total-cartoons input,
+.tempo-rental input,
+.total-cost span,
+.select-area label,
+.delivery-medium-container select,
+.datepicker-container input,
+.datepicker-container button {
+    max-width: 400px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#totalCostDisplay,
+#totalCostDisplayPickup {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.tickmark-options label,
+.tickmark-options input {
+    margin-bottom: 5px;
 }
 
 .tickmark-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
 }
 
 .tickmark-options label {
-    display: block;
+    width: 120px;
 }
 
-.total-cartoons,
-.tempo-rental,
-.total-petrol,
-.tempo-haath-kharcha {
-    margin-top: 10px;
+#totalCostDisplay,
+#totalCostDisplayPickup {
+    display: inline-block;
+    margin-left: 5px;
 }
 
-.total-cost {
-    margin-top: 10px;
+.delete-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.total-cost label {
-    font-weight: bold;
+.delete-btn:hover {
+    background-color: #c82333;
 }
 
+/* Delivery Table */
 #deliveryStatusTable {
-    width: 100%;
     margin-top: 20px;
+}
+
+#deliveryStatusTable table {
+    width: 100%;
     border-collapse: collapse;
 }
 
 #deliveryStatusTable th,
 #deliveryStatusTable td {
     padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
 }
 
 #deliveryStatusTable th {
     background-color: #f2f2f2;
 }
 
-.datepicker-container {
-    margin-top: 20px;
+#deliveryTableBody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-.datepicker-container input[type="date"],
-.datepicker-container button {
-    margin: 5px;
-    padding: 10px;
-    font-size: 14px;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
 
-.delivery-medium-container {
-    margin-top: 20px;
-}
+    button {
+        width: calc(100% - 20px);
+        margin: 10px 0;
+    }
 
-.delivery-medium-container select {
-    padding: 10px;
-    font-size: 14px;
-}
+    table th,
+    table td {
+        padding: 8px;
+    }
 
-.hidden {
-    display: none;
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: calc(100% - 12px);
+        padding: 8px;
+    }
 }
