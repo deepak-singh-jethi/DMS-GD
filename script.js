@@ -41,6 +41,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitDeliveryBtn = document.getElementById("submitDeliveryBtn");
   const deliveryStatusTable = document.getElementById("deliveryStatusTable");
   const deliveryTableBody = document.getElementById("deliveryTableBody");
+
+  //   ! pagination
+  const paginationBox = document.getElementById("paginate");
+  const prev = document.getElementById("prev");
+  const next = document.getElementById("next");
+
   totalCartoonsInput.addEventListener("input", calculateTempoTotalCost);
   tempoRentalInput.addEventListener("input", calculateTempoTotalCost);
   totalCartoonsInputPickup.addEventListener("input", calculatePickupTotalCost);
@@ -49,6 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
   busTotalCostInput.addEventListener("input", calculateBusTotalCost);
 
   let currentPage = 1;
+  let rowsPerPage = 30;
+  let start = 0;
+
   let billsData = [];
   let deliveryHistory = [];
   // Event listeners
@@ -163,25 +172,20 @@ document.addEventListener("DOMContentLoaded", function () {
       cost = busTotalCostInput.value;
       quantity = busTotalQuantity.value;
     }
-    deliveryHistory.push({
-      date: date,
-      deliveryMedium: deliveryMedium,
-      areas: areas,
-      quantity: quantity,
-      cost: cost,
-      checkedBillNumbers: checkedBillNumbers,
-      additionalDetails: additionalDetails,
-    });
-
-    addDeliveryToTable(
+    deliveryHistory.unshift({
       date,
       deliveryMedium,
       areas,
       quantity,
       cost,
       checkedBillNumbers,
-      additionalDetails
-    );
+      additionalDetails,
+    });
+
+    console.log(deliveryHistory);
+
+    // show only from 0,30
+    addDeliveryToTable({ start: 0, end: 30 });
     clearLatestBills();
   });
 
@@ -192,16 +196,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return selectedAreas.join(", ");
   }
 
-  function addDeliveryToTable(
-    date,
-    deliveryMedium,
-    areas,
-    quantity,
-    cost,
-    checkedBillNumbers,
-    additionalDetails
-  ) {
-    const row = document.createElement("tr");
+  function addDeliveryToTable({ start, end }) {
+    const deliveryTableBody = document.getElementById("deliveryTableBody");
+    deliveryTableBody.innerHTML = "";
 
     // Function to format keys for display
     function formatKey(key) {
@@ -212,25 +209,32 @@ document.addEventListener("DOMContentLoaded", function () {
         .join(" ");
     }
 
-    // Render additional details object into a string format
-    let additionalDetailsString = "";
-    if (additionalDetails) {
-      additionalDetailsString = Object.entries(additionalDetails)
-        .map(([key, value]) => `<strong>${formatKey(key)}:</strong> ${value}`)
-        .join("<br>");
-    }
+    // Render deliveries from deliveryHistory array
+    deliveryHistory.slice(start, end).forEach((element) => {
+      const row = document.createElement("tr");
 
-    row.innerHTML = `
-    <td>${checkedBillNumbers.join(", ")}</td>
-    <td>${date}</td>
-    <td>${deliveryMedium}</td>
-    <td>${areas}</td>
-    <td>${quantity}</td>
-    <td>${cost}</td>
-    <td>${additionalDetailsString}</td>
-  `;
+      let additionalDetailsString = "";
 
-    deliveryTableBody.prepend(row);
+      if (element.additionalDetails) {
+        additionalDetailsString = Object.entries(element.additionalDetails)
+          .map(([key, value]) => `<strong>${formatKey(key)}:</strong> ${value}`)
+          .join("<br>");
+      }
+
+      row.innerHTML = `
+       <td>${element.checkedBillNumbers.join(", ")}</td>
+      <td>${element.date}</td>
+      <td>${element.deliveryMedium}</td>
+      <td>${element.areas}</td>
+      <td>${element.quantity}</td>
+      <td>${element.cost}</td>
+     
+      <td>${additionalDetailsString}</td>
+    `;
+
+      deliveryTableBody.appendChild(row);
+    });
+
     deliveryStatusTable.classList.remove("hidden");
   }
 
