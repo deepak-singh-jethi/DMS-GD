@@ -125,11 +125,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Extract checked bill checkboxes
     const billCheckboxes = document.querySelectorAll(
-      "#billCheckboxList input[type=checkbox]:checked"
+      ".check_div input[type=checkbox]:checked"
     );
+
+    console.log({ billCheckboxes });
+
     const checkedBillNumbers = Array.from(billCheckboxes).map(
       (checkbox) => checkbox.value
     );
+    console.log({ checkedBillNumbers });
 
     // change bill data if any bill is used
     changeBillData(checkedBillNumbers);
@@ -200,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function populateLatestBills() {
     handleRecordPaginationButtonDisplay();
     const checkboxListDiv = document.createElement("div");
-    checkboxListDiv.id = "billCheckboxList";
+    checkboxListDiv.classList.add("check_div");
 
     latestBills.innerHTML = "";
 
@@ -459,8 +463,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // change bill data if it is already used
   const changeBillData = (checkedBillNumbers) => {
+    console.log({ checkedBillNumbers });
     billsData.forEach((bill) => {
       if (checkedBillNumbers.includes(bill.billNumber)) {
+        console.log("yes");
         bill.isChecked = true;
       }
     });

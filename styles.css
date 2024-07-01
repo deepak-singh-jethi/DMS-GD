@@ -51,12 +51,13 @@ button:hover {
 
 .heading-btn-box {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
 .heading-btn-box>#submitDeliveryBtn {
+
     margin-bottom: 30px;
     margin-top: 10px;
 }
