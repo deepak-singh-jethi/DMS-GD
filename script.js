@@ -227,8 +227,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // Append checkbox and label to the checkbox list
         checkboxListDiv.appendChild(checkbox);
         checkboxListDiv.appendChild(label);
-        checkboxListDiv.appendChild(document.createElement("br"));
-        latestBills.appendChild(checkboxListDiv);
+
+        const check_div = document.createElement("div");
+        check_div.classList.add("check_div");
+
+        check_div.appendChild(checkbox);
+        check_div.appendChild(label);
+        latestBills.appendChild(check_div);
       }
     });
   }
