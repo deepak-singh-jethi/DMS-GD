@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (element.additionalDetails) {
         additionalDetailsString = Object.entries(element.additionalDetails)
           .map(([key, value]) => `<strong>${formatKey(key)}:</strong> ${value}`)
-          .join("<br>");
+          .join(", ");
       }
 
       row.innerHTML = `
@@ -326,9 +326,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const convertExcelBtn = document.createElement("button");
     convertExcelBtn.textContent = "Convert to Excel";
-    convertExcelBtn.classList.add("convert-excel-btn");
+    convertExcelBtn.id = "todayBtn";
+    convertExcelBtn.style.marginTop = "30px";
 
     deliveryTableBody.appendChild(convertExcelBtn);
+    convertExcelBtn.addEventListener("click", convertTableToExcel);
 
     deliveryStatusTable.classList.remove("hidden");
   }
@@ -459,3 +461,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 });
+
+// convert table to excel sheet
+const convertTableToExcel = () => {
+  const table = document.getElementById("deliveryStatusTable");
+  const workbook = XLSX.utils.table_to_book(table);
+  XLSX.writeFile(workbook, "Deliveries.xlsx");
+};
